@@ -1,30 +1,24 @@
-public class Mergesort
+public class InsertionSort
 {
- private static double[] temp;
  // Sorts a[0], ..., a[size-1] in ascending order
- // using the Mergesort algorithm
+ // using Insertion Sort
  public static void sort(double[] a)
  {
- int n = a.length;
- temp = new double[n];
- recursiveSort(a, 0, n-1);
- }
- // Recursive helper method: sorts a[from], ..., a[to]
- private static void recursiveSort(double[] a, int from, int to)
+ for (int n = 1; n < a.length; n++)
  {
- if (to - from < 2) // Base case: 1 or 2 elements
+ // Save the next element to be inserted:
+ double aTemp = a[n];
+ // Going backwards from a[n-1], shift elements to the
+ // right until you find an element a[i] <= aTemp:
+ int i = n;
+ while (i > 0 && aTemp < a[i-1])
  {
- if (to > from && a[to] < a[from])
- {
- // swap a[to] and a[from]
- double aTemp = a[to]; a[to] = a[from]; a[from] = aTemp;
+ a[i] = a[i-1];
+ i--;
+ }
+ // Insert the saved element into a[i]:
+ a[i] = aTemp;
+ // Increment n (accomplished by n++ in the for loop).
  }
  }
- else // Recursive case
- {
- int middle = (from + to) / 2;
- recursiveSort(a, from, middle);
- recursiveSort(a, middle + 1, to);
- merge(a, from, middle, to);
- }
- }
+}
